@@ -2,13 +2,14 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:47:06                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:57:49                               *
+ * @LastEditDate          : 2025-06-19 22:02:42                               *
  *****************************************************************************/
 
 use crate::winapi_types::*;
 use crate::ffi::{
   CreateWindowExW, DefWindowProcW, GetLastError, GetModuleHandleW,
-  RegisterClassW, ShowWindow, UpdateWindow, GetMessageW, TranslateMessage, DispatchMessageW
+  RegisterClassW, ShowWindow, UpdateWindow, GetMessageW, TranslateMessage,
+  DispatchMessageW, PostQuitMessage
 };
 use std::ptr;
 
@@ -95,6 +96,20 @@ pub unsafe extern "system" fn dummy_wndproc(
   wparam: WPARAM,
   lparam: LPARAM,
 ) -> LRESULT {
+  match msg {
+    WM_KEYDOWN => {
+      if wparam == VK_ESCAPE as usize {
+        unsafe { PostQuitMessage(0) }
+        return 0;
+      }
+    }
+    WM_DESTROY => {
+      unsafe { PostQuitMessage(0) }
+      return 0;
+    }
+    _ => {}
+  }
+
   unsafe { DefWindowProcW(hwnd, msg, wparam, lparam) }
 }
 

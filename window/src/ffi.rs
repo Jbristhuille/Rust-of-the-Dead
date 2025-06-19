@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:47:26                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:53:15                               *
+ * @LastEditDate          : 2025-06-19 22:00:12                               *
  *****************************************************************************/
 
 // window/src/ffi.rs
@@ -39,4 +39,5 @@ unsafe extern "system" {
   pub fn GetMessageW(lpMsg: *mut MSG, hWnd: HWND, wMsgFilterMin: UINT, wMsgFilterMax: UINT) -> i32;
   pub fn TranslateMessage(lpMsg: *const MSG) -> i32;
   pub fn DispatchMessageW(lpMsg: *const MSG) -> isize;
+  pub fn PostQuitMessage(exit_code: i32);
 }

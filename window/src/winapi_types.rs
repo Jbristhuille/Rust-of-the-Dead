@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:23:37                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:57:56                               *
+ * @LastEditDate          : 2025-06-19 21:59:59                               *
  *****************************************************************************/
 
 // window/src/winapi_types.rs
@@ -50,6 +50,9 @@ pub const WS_CAPTION: DWORD      = 0x00C00000;
 pub const WS_SYSMENU: DWORD      = 0x00080000;
 pub const WS_MINIMIZEBOX: DWORD  = 0x00020000;
 pub const WS_VISIBLE: DWORD      = 0x10000000;
+pub const WM_KEYDOWN: UINT = 0x0100;
+pub const WM_DESTROY: UINT = 0x0002;
+pub const VK_ESCAPE: u32 = 0x1B;
 
 /// ShowWindow flags
 pub const SW_SHOW: i32 = 5;
