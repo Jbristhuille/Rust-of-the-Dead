@@ -2,12 +2,11 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:14:35                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:15:57                               *
+ * @LastEditDate          : 2025-06-19 21:20:22                               *
  *****************************************************************************/
 
 use crate::winapi_types::*;
 use crate::ffi::RegisterClassW;
-use std::ffi::c_void;
 use std::ptr;
 
 pub fn create_window() {
