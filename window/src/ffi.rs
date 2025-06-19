@@ -1,14 +1,39 @@
 /******************************************************************************
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
- * @CreatedDate           : 2025-06-19 21:09:37                               *
+ * @CreatedDate           : 2025-06-19 21:47:26                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:20:19                               *
+ * @LastEditDate          : 2025-06-19 21:48:33                               *
  *****************************************************************************/
 
-use crate::winapi_types::WNDCLASSW;
+// window/src/ffi.rs
+
+use crate::winapi_types::{WNDCLASSW, LPCWSTR, HINSTANCE, HWND, UINT, WPARAM, LPARAM, LRESULT};
+use std::ffi::c_void;
+
+#[link(name = "kernel32")]
+unsafe extern "system" {
+  pub fn GetLastError() -> u32;
+  pub fn GetModuleHandleW(lpModuleName: LPCWSTR) -> HINSTANCE;
+}
 
 #[link(name = "user32")]
 unsafe extern "system" {
-  /// Registers a window class for subsequent use in calls to CreateWindow or CreateWindowEx.
   pub fn RegisterClassW(lpWndClass: *const WNDCLASSW) -> u16;
+  pub fn CreateWindowExW(
+    dwExStyle: u32,
+    lpClassName: LPCWSTR,
+    lpWindowName: LPCWSTR,
+    dwStyle: u32,
+    x: i32,
+    y: i32,
+    nWidth: i32,
+    nHeight: i32,
+    hWndParent: *mut c_void,
+    hMenu: *mut c_void,
+    hInstance: HINSTANCE,
+    lpParam: *mut c_void,
+  ) -> HWND;
+  pub fn ShowWindow(hWnd: HWND, nCmdShow: i32) -> i32;
+  pub fn UpdateWindow(hWnd: HWND) -> i32;
+  pub fn DefWindowProcW(hWnd: HWND, msg: UINT, wParam: WPARAM, lParam: LPARAM) -> LRESULT;
 }
