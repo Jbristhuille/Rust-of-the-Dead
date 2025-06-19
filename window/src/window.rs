@@ -2,13 +2,13 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:47:06                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:50:17                               *
+ * @LastEditDate          : 2025-06-19 21:57:49                               *
  *****************************************************************************/
 
 use crate::winapi_types::*;
 use crate::ffi::{
   CreateWindowExW, DefWindowProcW, GetLastError, GetModuleHandleW,
-  RegisterClassW, ShowWindow, UpdateWindow,
+  RegisterClassW, ShowWindow, UpdateWindow, GetMessageW, TranslateMessage, DispatchMessageW
 };
 use std::ptr;
 
@@ -50,7 +50,7 @@ pub fn create_window() {
       0,
       CLASS_NAME.as_ptr(),
       WINDOW_TITLE.as_ptr(),
-      WS_OVERLAPPEDWINDOW,
+      WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
       CW_USEDEFAULT,
       CW_USEDEFAULT,
       800,
@@ -70,6 +70,22 @@ pub fn create_window() {
     UpdateWindow(hwnd);
 
     println!("Window successfully created and displayed.");
+  }
+
+  let mut msg = MSG {
+    hwnd: ptr::null_mut(),
+    message: 0,
+    wParam: 0,
+    lParam: 0,
+    time: 0,
+    pt: POINT { x: 0, y: 0 },
+  };
+
+  unsafe {
+    while GetMessageW(&mut msg, ptr::null_mut(), 0, 0) > 0 {
+      TranslateMessage(&msg);
+      DispatchMessageW(&msg);
+    }
   }
 }
 

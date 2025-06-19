@@ -2,12 +2,12 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:47:26                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:48:33                               *
+ * @LastEditDate          : 2025-06-19 21:53:15                               *
  *****************************************************************************/
 
 // window/src/ffi.rs
 
-use crate::winapi_types::{WNDCLASSW, LPCWSTR, HINSTANCE, HWND, UINT, WPARAM, LPARAM, LRESULT};
+use crate::winapi_types::*;
 use std::ffi::c_void;
 
 #[link(name = "kernel32")]
@@ -36,4 +36,7 @@ unsafe extern "system" {
   pub fn ShowWindow(hWnd: HWND, nCmdShow: i32) -> i32;
   pub fn UpdateWindow(hWnd: HWND) -> i32;
   pub fn DefWindowProcW(hWnd: HWND, msg: UINT, wParam: WPARAM, lParam: LPARAM) -> LRESULT;
+  pub fn GetMessageW(lpMsg: *mut MSG, hWnd: HWND, wMsgFilterMin: UINT, wMsgFilterMax: UINT) -> i32;
+  pub fn TranslateMessage(lpMsg: *const MSG) -> i32;
+  pub fn DispatchMessageW(lpMsg: *const MSG) -> isize;
 }

@@ -2,7 +2,7 @@
  * @Author                : Jbristhuille<jbristhuille@gmail.com>              *
  * @CreatedDate           : 2025-06-19 21:23:37                               *
  * @LastEditors           : Jbristhuille<jbristhuille@gmail.com>              *
- * @LastEditDate          : 2025-06-19 21:43:50                               *
+ * @LastEditDate          : 2025-06-19 21:57:56                               *
  *****************************************************************************/
 
 // window/src/winapi_types.rs
@@ -44,8 +44,29 @@ pub struct WNDCLASSW {
 }
 
 /// Common window styles
-pub const WS_OVERLAPPEDWINDOW: DWORD = 0x00CF0000;
 pub const CW_USEDEFAULT: i32 = 0x80000000_u32 as i32;
+pub const WS_OVERLAPPED: DWORD   = 0x00000000;
+pub const WS_CAPTION: DWORD      = 0x00C00000;
+pub const WS_SYSMENU: DWORD      = 0x00080000;
+pub const WS_MINIMIZEBOX: DWORD  = 0x00020000;
+pub const WS_VISIBLE: DWORD      = 0x10000000;
 
 /// ShowWindow flags
 pub const SW_SHOW: i32 = 5;
+
+#[repr(C)]
+pub struct POINT {
+  pub x: i32,
+  pub y: i32,
+}
+
+#[allow(non_snake_case)]
+#[repr(C)]
+pub struct MSG {
+  pub hwnd: HWND,
+  pub message: UINT,
+  pub wParam: WPARAM,
+  pub lParam: LPARAM,
+  pub time: DWORD,
+  pub pt: POINT,
+}
